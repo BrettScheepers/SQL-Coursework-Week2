@@ -9,6 +9,113 @@ Below you will find a set of tasks for you to complete to set up a database for 
 To submit this homework write the correct commands for each question here:
 ```sql
 
+1.select name, address
+from customers c 
+where country = 'United States'
+
+2.select *
+from customers c 
+order by "name" 
+
+3.select *
+from products p
+where product_name like '%socks%'
+
+4.select p.product_name, p.id, pa.supp_id , pa.unit_price 
+from products p
+	inner join product_availability pa 
+	on p.id = pa.prod_id 
+	where pa.unit_price > 100
+
+5.select p.product_name, p.id, pa.supp_id , pa.unit_price 
+from products p
+	inner join product_availability pa 
+	on p.id = pa.prod_id 
+	order by pa.unit_price desc 
+	limit 5
+
+6.select p.product_name, s.supplier_name , pa.unit_price 
+from products p
+	inner join product_availability pa 
+	on p.id = pa.prod_id 
+	inner join suppliers s 
+	on pa.supp_id = s.id 
+
+7.select p.product_name, s.supplier_name
+from products p
+	inner join product_availability pa 
+	on p.id = pa.prod_id 
+	inner join suppliers s 
+	on pa.supp_id = s.id 
+	where s.country = 'United Kingdom'
+
+8.select o.id , o.order_reference , o.order_date , pa.unit_price * oi.quantity as total_cost
+from orders o 
+inner join order_items oi 
+on o.id = oi.order_id
+inner join product_availability pa
+on oi.order_id = pa.prod_id 
+inner join products p 
+on p.id = pa.prod_id 
+where o.customer_id = 1
+
+9.select *
+from orders o 
+inner join customers c 
+on o.customer_id = c.id 
+inner join order_items oi 
+on o.id = oi.order_id 
+inner join product_availability pa 
+on oi.product_id = pa.prod_id 
+inner join products p 
+on pa.prod_id = p.id 
+where c."name" = 'Hope Crosby'
+
+10.select p.product_name, pa.unit_price , oi.quantity 
+from products p 
+inner join product_availability pa 
+on p.id = pa.prod_id 
+inner join order_items oi 
+on pa.prod_id = oi.product_id 
+inner join orders o 
+on oi.order_id = o.id 
+where o.order_reference = 'ORD006'
+
+11.select c."name" , o.order_reference , o.order_date, p.product_name, s.supplier_name , oi.quantity 
+from products p 
+inner join product_availability pa 
+on p.id = pa.prod_id 
+inner join order_items oi 
+on pa.prod_id = oi.product_id 
+inner join orders o 
+on oi.order_id = o.id
+inner join suppliers s 
+on pa.supp_id = s.id 
+inner join customers c 
+on o.customer_id = c.id 
+
+12.select c."name"
+from product_availability pa 
+inner join order_items oi 
+on pa.prod_id = oi.product_id 
+inner join orders o 
+on oi.order_id = o.id
+inner join suppliers s 
+on pa.supp_id = s.id 
+inner join customers c 
+on o.customer_id = c.id 
+where s.country = 'China'
+
+13.select c."name" , o.order_reference , o.order_date , 
+pa.unit_price * oi.quantity as order_total
+from orders o 
+inner join customers c 
+on o.customer_id = c.id 
+inner join order_items oi 
+on oi.order_id = o.id 
+inner join product_availability pa 
+on pa.prod_id = oi.product_id 
+order by order_total desc 
 
 ```
 
